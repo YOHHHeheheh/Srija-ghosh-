@@ -1,162 +1,181 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>26.05 | Srija</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <title>For Srija | 26.05</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #050505;
-            --accent-blue: #0077ff;
-            --text-white: #f0f0f0;
-        }
+        :root { --flower-pink: #FF85A1; --soft-yellow: #FFFAEC; --sky-blue: #A2D2FF; --bear-brown: #8B5A2B; }
+        body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); font-family: 'Nunito', sans-serif; margin: 0; overflow-x: hidden; min-height: 100vh; display: flex; justify-content: center; align-items: center; touch-action: none; scroll-behavior: smooth; }
+        
+        .shooting-star { position: fixed; font-size: 1.5rem; z-index: 10006; cursor: pointer; pointer-events: auto; filter: drop-shadow(0 0 10px gold); animation: streak 4s linear forwards; }
+        @keyframes streak { 0% { transform: translate(-10vw, -10vh) rotate(45deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(110vw, 110vh) rotate(45deg); opacity: 0; } }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-white);
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+        .heart-trail { position: fixed; pointer-events: none; z-index: 10001; animation: heartFade 1s ease-out forwards; font-size: 1.2rem; }
+        @keyframes heartFade { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.5) translateY(-30px); opacity: 0; } }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
-            opacity: 0.06;
-            pointer-events: none;
-            z-index: 100;
-        }
+        .container { position: relative; z-index: 10; text-align: center; width: 90%; max-width: 580px; padding: 40px 0; transition: transform 0.8s ease; }
+        
+        .hug-arm { position: fixed; font-size: 8rem; z-index: 10005; top: 50%; transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; pointer-events: none; }
+        .arm-left { left: -150px; transform: translateY(-50%) rotate(45deg); }
+        .arm-right { right: -150px; transform: translateY(-50%) rotate(-45deg); }
+        .squeezing .arm-left { left: 10px; opacity: 1; }
+        .squeezing .arm-right { right: 10px; opacity: 1; }
+        .squeezing .container { transform: scale(0.9); }
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            padding: 50px 0;
-            z-index: 10;
+        #main-gift { display: none; background: rgba(255, 255, 255, 0.98); padding: 45px 30px; border-radius: 40px; border: 8px solid white; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: popUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        .shimmer-btn { 
+            background: var(--flower-pink); color: white; border: none; padding: 12px 25px; border-radius: 50px; 
+            font-family: 'Fredoka One', cursive; cursor: pointer; position: relative; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4); margin-top: 20px;
         }
+        .shimmer-btn::after {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg); animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-150%) rotate(45deg); } 100% { transform: translateX(150%) rotate(45deg); } }
 
-        .date-stamp {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.8rem;
-            color: #555;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-        }
+        .drink-highlight { color: #2D9CDB; font-weight: bold; position: relative; animation: pulseBlue 2s infinite; display: inline-block; }
+        @keyframes pulseBlue { 0%, 100% { text-shadow: 0 0 0px #2D9CDB; } 50% { text-shadow: 0 0 10px #2D9CDB; } }
+        .drink-emoji { display: inline-block; animation: bounce 1s infinite alternate; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-5px); } }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-style: italic;
-            background: linear-gradient(to right, #ffffff, var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-        }
+        .counter-box { background: #FFF0F5; border-radius: 20px; padding: 15px; margin-bottom: 30px; border: 2px dashed var(--flower-pink); }
+        #timer { font-family: 'Fredoka One', cursive; color: var(--flower-pink); font-size: 1.1rem; }
 
-        .unlock-btn {
-            background: transparent;
-            border: 1px solid var(--accent-blue);
-            color: var(--text-white);
-            padding: 15px 40px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
+        h1 { font-family: 'Pacifico', cursive; color: var(--flower-pink); font-size: 2.4rem; margin: 0; }
+        .letter-content { line-height: 2; text-align: left; font-size: 1.05rem; color: #333; }
 
-        #main-content {
-            display: none;
-            animation: cinematicFade 2s ease forwards;
-        }
-
-        .letter {
-            text-align: left;
-            line-height: 1.8;
-            border-left: 1px solid var(--accent-blue);
-            padding-left: 20px;
-            margin: 40px 0;
-            color: #ccc;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .polaroid {
-            background: #111;
-            padding: 10px 10px 40px 10px;
-            border: 1px solid #222;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
-        }
-
-        .polaroid img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: cover;
-        }
-
-        .caption {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.8rem;
-            margin-top: 15px;
-            color: #888;
-        }
-
-        @keyframes cinematicFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .polaroid { background: white; padding: 12px 12px 50px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px; cursor: pointer; }
+        .polaroid img { width: 100%; border-radius: 10px; filter: blur(20px); transition: 1.5s; }
+        .revealed img { filter: blur(0); }
+        
+        .signature { text-align: right; margin-top: 30px; font-family: 'Pacifico', cursive; font-size: 1.8rem; color: var(--flower-pink); opacity: 0; transition: 2s; }
+        
+        #custom-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 30px; z-index: 10007; width: 85%; max-width: 400px; text-align: center; border: 5px solid var(--flower-pink); }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; }
+        
+        @keyframes popUp { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
-<body>
+<body onmousemove="spawnHeart(event)" ontouchmove="spawnHeart(event)">
 
-    <div class="container">
+    <div class="hug-arm arm-left">🐾</div>
+    <div class="hug-arm arm-right">🐾</div>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.dropbox.com/scl/fi/f0v5369iujy7xov9y1mvy/Cigarettes-After-Sex-Apocalypse.mp3?rlkey=v6l9j6l8l8l8l8l8l8l8&raw=1" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="main-container">
         <div id="landing">
-            <div class="date-stamp">DECEMBER 13, 2025</div>
-            <h1>Srija Ghosh.</h1>
-            <button class="unlock-btn" onclick="openLetter()">Open Entry</button>
+            <h1 style="color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.2);">For Srija Ghosh</h1>
+            <div class="bear-container" onclick="openGift()">
+                <div class="bear-main">🧸</div>
+            </div>
+            <p style="font-weight: bold; color: #555;">(Move your finger for magic ✨)</p>
         </div>
 
-        <div id="main-content">
-            <div class="letter">
-                <p>Srija,</p>
-                <p>I’ve spent the last 2 years trying to find the perfect way to tell you how much you mean to me. Every time we’re together, whether we're laughing over a cold drink or just sharing a quiet moment, I’m constantly reminded of how incredibly attractive you are.</p>
-                <p>The truth is, I’ve wanted to sit you down, look you in the eyes, and propose with a single red rose. But when I'm actually there, my shyness takes over. So I built this—a permanent corner of the internet that belongs to you.</p>
-                <p>I love you very much.<br>— Trishit</p>
+        <div id="main-gift">
+            <button class="shimmer-btn" style="width:100%; margin-bottom:20px;" onclick="toggleMusic()" id="musicBtn">🎵 Play Our Song</button>
+            <div class="counter-box"><div id="timer">Counting...</div></div>
+
+            <h1>Happy Birthday! 🌸</h1>
+            <div id="typewriter" class="letter-content"></div>
+            
+            <button class="shimmer-btn" id="hugBtn" style="display:none; background:#8B5A2B;" onclick="receiveHug()">🤗 Receive a Virtual Hug</button>
+
+            <div id="sig" class="signature">With all my love, <br> Trishit Roy (Tish)</div>
+
+            <div class="gallery" id="gal" style="display:none;">
+                <div class="polaroid" id="first-pic" onclick="this.classList.add('revealed')">
+                    <img src="IMG20250926125707.jpg">
+                    <p style="font-size:0.6rem; color:#aaa; margin-top:10px;">Touch to reveal memory 🌷</p>
+                </div>
+                <div class="polaroid" onclick="this.classList.add('revealed')">
+                    <img src="IMG20251210124535.jpg">
+                    <p style="font-size:0.6rem; color:#aaa; margin-top:10px;">Touch to reveal memory 🌹</p>
+                </div>
             </div>
 
-            <div class="gallery">
-                <div class="polaroid">
-                    <img src="IMG202509261257.jpg">
-                    <div class="caption">730 days of you, and I still get shy.</div>
-                </div>
-                <div class="polaroid">
-                    <img src="IMG202512101245.jpg">
-                    <div class="caption">Most people need a camera to see art; I just need you.</div>
-                </div>
-            </div>
-            <p style="font-size: 0.6rem; color: #333; margin-top: 40px;">ARCHIVED DEC 13, 2025</p>
+            <button class="shimmer-btn" id="surpBtn" style="display:none; margin-top:40px;" onclick="checkDate()">One last thing...</button>
         </div>
     </div>
 
+    <div class="overlay" id="overlay" onclick="closeSecret()"></div>
+    <div id="custom-alert">
+        <h2 id="alert-title" style="font-family: 'Pacifico'; color: var(--flower-pink);"></h2>
+        <p id="alert-msg" style="font-weight: bold; line-height: 1.6;"></p>
+        <button class="shimmer-btn" onclick="closeSecret()">Close ❤️</button>
+    </div>
+
     <script>
-        function openLetter() {
-            document.getElementById('landing').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
+        const startDate = new Date("June 15, 2024 00:00:00").getTime();
+        const fullText = `Dearest Srija, \n\nI have spent the last two amazing years reflecting on how incredibly lucky I am to have you in my life. You are, without a doubt, the most stunningly beautiful person I have ever known. \n\nI really wanted to look you deeply in the eyes and propose to you with a single red rose. However, my shyness always takes over! I built this floral world for you instead. I wish I could hold you close and kiss you until my very last breath. Since I can't be there physically, I've sent a virtual hug below for you to hold onto.\n\nI hope your day is filled with your favorite <span class="drink-highlight">cold drinks <span class="drink-emoji">🥤</span></span>.`;
+
+        function spawnHeart(e) {
+            const h = document.createElement('div'); h.className = 'heart-trail';
+            h.innerHTML = ['❤️','✨','🌸','💖'][Math.floor(Math.random()*4)];
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            h.style.left = x + 'px'; h.style.top = y + 'px';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 1000);
         }
+
+        function createShootingStar() {
+            const star = document.createElement('div'); star.className = 'shooting-star'; star.innerHTML = '🌠';
+            star.style.top = Math.random() * 20 + 'vh';
+            star.onclick = () => { star.remove(); showAlert("A Wish Granted! ✨", "You caught a shooting star! Your wish is heard. I'm working hard every day so that soon, we won't have to wish for each other from a distance anymore. I love you."); };
+            document.body.appendChild(star); setTimeout(() => star.remove(), 4000);
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime(); const diff = now - startDate;
+            const d = Math.floor(diff / 86400000); const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000); const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById("timer").innerHTML = d + "d " + h + "h " + m + "m " + s + "s";
+        }
+        setInterval(updateTimer, 1000); setInterval(() => { if(Math.random() > 0.7) createShootingStar(); }, 15000);
+
+        function typeWriter(text, i, cb) {
+            if (i < text.length) {
+                if (text.substring(i, i+1) === "<") { i = text.indexOf(">", i); }
+                document.getElementById("typewriter").innerHTML = text.substring(0, i+1) + '<span style="color:#ff85a1">|</span>';
+                setTimeout(() => typeWriter(text, i + 1, cb), 40);
+            } else { document.getElementById("typewriter").innerHTML = text; cb(); }
+        }
+
+        function openGift() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('main-gift').style.display = 'block';
+            typeWriter(fullText, 0, () => {
+                document.getElementById('sig').style.opacity = '1';
+                document.getElementById('gal').style.display = 'block';
+                document.getElementById('surpBtn').style.display = 'inline-block';
+                document.getElementById('hugBtn').style.display = 'inline-block';
+                
+                // Magic Smooth Scroll
+                setTimeout(() => {
+                    document.getElementById('gal').scrollIntoView({ behavior: 'smooth' });
+                }, 1000);
+            });
+        }
+
+        function receiveHug() { document.body.classList.add('squeezing'); setTimeout(() => { document.body.classList.remove('squeezing'); }, 2000); }
+
+        function checkDate() {
+            const now = new Date(); const bday = new Date(2026, 4, 26);
+            if (now < bday) { showAlert("Not yet, Srija! 🧸", "A gentleman never reveals his secrets before the big day. Come back on May 26th!"); }
+            else { showAlert("My Final Secret...", "Okay srija ghosh, i loveee youu tooo too muchhhhh and Yahh i alsooo missss youuuu very verryyy verryyyy muchhhhh like all I think about iss you and yah only youuu 😍 \n\n I hope eta torrr bhalo legecheee 😁🥰"); }
+        }
+
+        function showAlert(t, m) { document.getElementById('alert-title').innerHTML = t; document.getElementById('alert-msg').innerHTML = m; document.getElementById('overlay').style.display = 'block'; document.getElementById('custom-alert').style.display = 'block'; }
+        function closeSecret() { document.getElementById('overlay').style.display = 'none'; document.getElementById('custom-alert').style.display = 'none'; }
+        function toggleMusic() { const a = document.getElementById("myAudio"); if (a.paused) { a.play(); document.getElementById("musicBtn").innerHTML = "⏸ Pause Our Song"; } else { a.pause(); document.getElementById("musicBtn").innerHTML = "🎵 Play Our Song"; } }
     </script>
 </body>
 </html>
