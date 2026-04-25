@@ -8,20 +8,31 @@
     <style>
         :root { --flower-pink: #FF85A1; --soft-pink: #FFE5EC; --yes-green: #2ecc71; --no-red: #e74c3c; }
         body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); font-family: 'Nunito', sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; touch-action: manipulation; }
-        .container { text-align: center; width: 90%; max-width: 500px; padding: 50px 0; }
-        .bear-container { width: 280px; height: 280px; margin: 40px auto; cursor: pointer; position: relative; transition: 0.3s ease; }
-        .bear-main { font-size: 9rem; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.15)); }
-        .dodge-left { transform: translateX(-100px) scale(1.1); }
-        .dodge-right { transform: translateX(100px) scale(1.1); }
-        .dodge-center { transform: translateX(0) scale(1); }
-        .tap-hint { font-family: 'Fredoka One', cursive; color: white; background: var(--flower-pink); padding: 12px 25px; border-radius: 20px; animation: bounce 1.5s infinite; cursor: pointer; margin-bottom: 20px; display: inline-block; }
+        
+        .container { text-align: center; width: 90%; max-width: 500px; padding: 50px 0; position: relative; z-index: 1; }
+
+        /* Naughty Bear Section */
+        .bear-wrapper { position: relative; display: inline-block; cursor: pointer; padding: 20px; z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .bear-main { font-size: 9rem; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.15)); pointer-events: none; }
+        
+        .tap-hint { 
+            font-family: 'Fredoka One', cursive; color: white; background: var(--flower-pink); 
+            padding: 12px 25px; border-radius: 20px; animation: bounce 1.5s infinite; 
+            margin-bottom: 20px; display: inline-block; pointer-events: none; 
+        }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* Proposal Box & Running Button */
         #proposal-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 40px 20px; border-radius: 30px; z-index: 10000; width: 85%; max-width: 380px; border: 5px solid var(--flower-pink); box-shadow: 0 0 100px rgba(0,0,0,0.3); }
+        #no-btn { transition: 0.2s ease; position: absolute; }
+
+        /* Main Content */
         #main-gift { display: none; background: rgba(255, 255, 255, 0.96); padding: 40px 25px; border-radius: 30px; width: 100%; box-sizing: border-box; box-shadow: 0 15px 50px rgba(0,0,0,0.1); }
         .shimmer-btn { background: var(--flower-pink); color: white; border: none; padding: 15px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; cursor: pointer; margin: 10px 0; transition: 0.2s; }
-        .polaroid { background: white; padding: 15px 15px 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px 0; }
-        .polaroid img { width: 100%; filter: blur(20px); transition: 1.5s; }
+        .polaroid { background: white; padding: 15px 15px 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px 0; border: 1px solid #eee; }
+        .polaroid img { width: 100%; filter: blur(20px); transition: 1.5s; border-radius: 2px; }
         .revealed img { filter: blur(0); }
+        
         .trail { position: fixed; pointer-events: none; z-index: 9999; animation: fadeOut 1s forwards; font-size: 1.5rem; }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; transform: scale(2) translateY(-40px); } }
     </style>
@@ -34,65 +45,113 @@
 
     <div class="container" id="main-container">
         <div id="landing">
-            <div class="tap-hint" onclick="naughtyNudge()">Tap the Bear, Srija! ✨😈</div>
-            <div class="bear-container" id="naughtyBear"><div class="bear-main">🧸</div></div>
-            <h2 style="font-family: 'Pacifico'; color: white;">For the girl who has my heart...</h2>
+            <div id="hint-text" class="tap-hint">Catch the Bear, Srija! 🧸😈</div>
+            <br>
+            <div class="bear-wrapper" id="naughtyBear" onclick="naughtyNudge()">
+                <div class="bear-main">🧸</div>
+            </div>
+            <h2 style="font-family: 'Pacifico'; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">For the girl who has my heart...</h2>
         </div>
 
         <div id="main-gift">
             <button class="shimmer-btn" style="width:100%;" id="musicBtn" onclick="toggleMusic()">🎵 Play Our Song</button>
             <h1 style="font-family: 'Pacifico'; color: var(--flower-pink);">Happy Birthday, Srija... 🌸</h1>
-            <div id="typewriter" style="text-align: left; line-height: 1.8; color: #444; font-size: 1.1rem;"></div>
+            <div id="typewriter" style="text-align: left; line-height: 1.8; color: #444; font-size: 1.1rem; white-space: pre-wrap;"></div>
+            
             <div id="gallery" style="display:none;">
                 <div class="polaroid" style="transform: rotate(-3deg);" onclick="this.classList.add('revealed')">
-                    <img src="IMG20250926125707.jpg"><p style="font-family: 'Pacifico'; color: #888; margin-top: 10px;">Our Times 🌷</p>
+                    <img src="IMG20250926125707.jpg">
+                    <p style="font-family: 'Pacifico'; color: #888; margin-top: 10px;">Our Beautiful Times 🌷</p>
                 </div>
                 <div class="polaroid" style="transform: rotate(3deg);" onclick="this.classList.add('revealed')">
-                    <img src="IMG20251210124535.jpg"><p style="font-family: 'Pacifico'; color: #888; margin-top: 10px;">My Everything 🌹</p>
+                    <img src="IMG20251210124535.jpg">
+                    <p style="font-family: 'Pacifico'; color: #888; margin-top: 10px;">My Everything 🌹</p>
                 </div>
-                <button class="shimmer-btn" style="width:100%; background: #8B5A2B;" onclick="alert('🤗 Sending a tight hug!')">🤗 Receive a Virtual Hug</button>
+                <button class="shimmer-btn" style="width:100%; background: #8B5A2B;" onclick="alert('🤗 Sending you the tightest hug ever!')">🤗 Receive a Virtual Hug</button>
                 <button class="shimmer-btn" style="width:100%;" onclick="checkDate()">One last secret... 🤫</button>
             </div>
         </div>
     </div>
 
     <div id="proposal-box">
-        <h2 style="font-family: 'Pacifico'; color: var(--flower-pink);">Do you love me? 🥰</h2>
-        <div style="position: relative; height: 120px;">
-            <button class="shimmer-btn" id="yes-btn" style="background: var(--yes-green); position: absolute; left: 10%;" onclick="startGift()">A) Yes</button>
-            <button class="shimmer-btn" id="no-btn" style="background: var(--no-red); position: absolute; right: 10%;" onmouseover="dodgeNo()" ontouchstart="dodgeNo()">B) No</button>
+        <h2 style="font-family: 'Pacifico'; color: var(--flower-pink); margin-bottom: 30px;">Do you love me? 🥰</h2>
+        <div style="position: relative; height: 140px; width: 100%;">
+            <button class="shimmer-btn" id="yes-btn" style="background: var(--yes-green); position: absolute; left: 10px; top: 0; width: 100px; z-index: 10001;" onclick="startGift()">A) Yes</button>
+            <button class="shimmer-btn" id="no-btn" style="background: var(--no-red); position: absolute; right: 10px; top: 0; width: 100px; z-index: 10001;" onmouseover="dodgeNo()" ontouchstart="dodgeNo()">B) No</button>
         </div>
     </div>
 
     <script>
-        const letter = `My Dearest Srija, Every second since June 2025, you’ve been the only thought in my head. You are the peace I find at the end of a long day. I hope your day is filled with your favorite cold drinks 🥤. Trishit ❤️`;
+        const letter = `My Dearest Srija,
+
+Every second since June 2024, you’ve been the only thought in my head. You are the peace I find at the end of a long day. 
+
+I hope your day is as stunning as you are and filled with your favorite cold drinks 🥤. I'm counting every day until I can give you a real rose in person.
+
+With all my soul,
+Trishit (Tish) ❤️`;
+
         const music = document.getElementById('bgMusic');
         let nudges = 0;
 
         function naughtyNudge() {
             const b = document.getElementById('naughtyBear');
-            const h = document.querySelector('.tap-hint');
+            const h = document.getElementById('hint-text');
             nudges++;
-            if(nudges==1){ b.className='bear-container dodge-left'; h.innerHTML="Too slow! 😜"; }
-            else if(nudges==2){ b.className='bear-container dodge-right'; h.innerHTML="Faster! 🤣"; }
-            else { b.className='bear-container dodge-center'; h.innerHTML="Okay, fine! 🥰"; setTimeout(()=> { document.getElementById('landing').style.display='none'; document.getElementById('proposal-box').style.display='block'; }, 1000); }
+            
+            if(nudges == 1) { 
+                b.style.transform = "translateX(-110px) scale(1.1)"; 
+                h.innerHTML = "Too slow! 😜"; 
+            }
+            else if(nudges == 2) { 
+                b.style.transform = "translateX(110px) scale(1.1)"; 
+                h.innerHTML = "Faster than that! 🤣"; 
+            }
+            else { 
+                b.style.transform = "translateX(0) scale(1)"; 
+                h.innerHTML = "Okay, you win! 🥰"; 
+                setTimeout(() => { 
+                    document.getElementById('landing').style.display = 'none'; 
+                    document.getElementById('proposal-box').style.display = 'block'; 
+                }, 800); 
+            }
         }
 
         function dodgeNo() {
             const btn = document.getElementById('no-btn');
-            btn.style.left = Math.random() * 70 + "%";
-            btn.style.top = Math.random() * 70 + "%";
+            const container = document.getElementById('proposal-box');
+            
+            // Calculate random positions within the box
+            const maxX = container.clientWidth - btn.clientWidth - 20;
+            const maxY = container.clientHeight - btn.clientHeight - 80; // keep it away from title
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY) + 60;
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
             btn.innerHTML = "Nope! 🏃‍♂️";
         }
 
         function startGift() {
             document.getElementById('proposal-box').style.display = 'none';
             document.getElementById('main-gift').style.display = 'block';
-            music.play();
+            music.play().catch(() => console.log("Music ready after interaction"));
+            
             let i = 0;
+            const container = document.getElementById('typewriter');
             function type() {
-                if(i < letter.length) { document.getElementById('typewriter').innerHTML += letter.charAt(i); i++; setTimeout(type, 50); }
-                else { document.getElementById('gallery').style.display='block'; window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}); }
+                if(i < letter.length) { 
+                    container.innerHTML += letter.charAt(i); 
+                    i++; 
+                    setTimeout(type, 50); 
+                }
+                else { 
+                    document.getElementById('gallery').style.display='block'; 
+                    setTimeout(() => {
+                        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+                    }, 500);
+                }
             }
             type();
         }
@@ -106,7 +165,15 @@
         }
 
         function toggleMusic() { if(music.paused){ music.play(); } else { music.pause(); } }
-        function checkDate() { const d = new Date(); if(d.getMonth()===4 && d.getDate()===26) { alert("I love you more than words can say! 😍"); } else { alert("Wait until May 26th! 🧸"); } }
+        
+        function checkDate() { 
+            const d = new Date(); 
+            if(d.getMonth()===4 && d.getDate()===26) { 
+                alert("Okay srija ghosh, i loveee youu tooo too muchhhhh and Yahh i alsooo missss youuuu very verryyy verryyyy muchhhhh 😍 😁🥰"); 
+            } else { 
+                alert("A gentleman never reveals his secrets early! Wait until May 26th! 🧸"); 
+            } 
+        }
     </script>
 </body>
 </html>
