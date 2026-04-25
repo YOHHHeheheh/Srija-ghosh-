@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
             --bg-color: #050505;
             --accent-blue: #0077ff;
             --text-white: #f0f0f0;
-            --card-bg: #0d0d0d;
         }
 
         body {
@@ -24,7 +23,6 @@
             min-height: 100vh;
         }
 
-        /* Indie-Sleaze Film Grain Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -55,7 +53,7 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-style: italic;
             background: linear-gradient(to right, #ffffff, var(--accent-blue));
             -webkit-background-clip: text;
@@ -71,41 +69,27 @@
             letter-spacing: 5px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: 0.4s;
             font-size: 0.7rem;
-        }
-
-        .unlock-btn:hover {
-            background: var(--accent-blue);
-            color: #000;
-            box-shadow: 0 0 30px rgba(0, 119, 255, 0.5);
         }
 
         #main-content {
             display: none;
-            animation: cinematicFade 3s ease forwards;
+            animation: cinematicFade 2s ease forwards;
         }
 
         .letter {
             text-align: left;
             line-height: 1.8;
-            font-weight: 300;
             border-left: 1px solid var(--accent-blue);
             padding-left: 20px;
             margin: 40px 0;
             color: #ccc;
         }
 
-        .letter span.highlight {
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        /* Gallery Styles */
         .gallery {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 25px;
             margin-top: 50px;
         }
 
@@ -114,50 +98,26 @@
             padding: 10px 10px 40px 10px;
             border: 1px solid #222;
             box-shadow: 0 15px 30px rgba(0,0,0,0.7);
-            transition: 0.5s;
-        }
-
-        .polaroid:nth-child(odd) { transform: rotate(-2deg); }
-        .polaroid:nth-child(even) { transform: rotate(2deg); }
-
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            z-index: 50;
-            border-color: var(--accent-blue);
         }
 
         .polaroid img {
             width: 100%;
-            height: 200px;
+            height: auto;
+            max-height: 400px;
             object-fit: cover;
-            filter: contrast(1.1) brightness(0.8);
         }
 
         .caption {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-top: 15px;
-            color: #777;
-            text-align: center;
-        }
-
-        .final-note {
-            font-size: 0.7rem;
-            color: #333;
-            margin-top: 60px;
-            letter-spacing: 2px;
+            color: #888;
         }
 
         @keyframes cinematicFade {
-            from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 480px) {
-            .gallery { grid-template-columns: 1fr; }
-            h1 { font-size: 2.2rem; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -173,41 +133,22 @@
         <div id="main-content">
             <div class="letter">
                 <p>Srija,</p>
-                <p>
-                    I’ve spent the last <span class="highlight">2 years</span> trying to find the perfect way to tell you how much you mean to me. Every time we’re together, whether we're laughing over a <span class="highlight">cold drink</span> or just sharing a quiet moment, I’m constantly reminded of how incredibly attractive and brilliant you are.
-                </p>
-                <p>
-                    The truth is, I’ve wanted to sit you down so many times, look you in the eyes, and <span class="highlight">propose to you with a single red rose</span>. But when I'm actually in front of you, my shyness takes over. My heart beats a bit too fast, and the words get stuck. 
-                </p>
-                <p>
-                    So I built this. A permanent corner of the internet that belongs to you. I love you more than I can ever put into words.
-                </p>
-                <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-top: 30px;">
-                    Happy Birthday, my love.<br>
-                    — Trishit
-                </p>
+                <p>I’ve spent the last 2 years trying to find the perfect way to tell you how much you mean to me. Every time we’re together, whether we're laughing over a cold drink or just sharing a quiet moment, I’m constantly reminded of how incredibly attractive you are.</p>
+                <p>The truth is, I’ve wanted to sit you down, look you in the eyes, and propose with a single red rose. But when I'm actually there, my shyness takes over. So I built this—a permanent corner of the internet that belongs to you.</p>
+                <p>I love you very much.<br>— Trishit</p>
             </div>
 
             <div class="gallery">
                 <div class="polaroid">
-                    <img src="pic1.jpg" alt="Memory 1">
-                    <div class="caption">730 days of you, and I still get shy when you catch me staring.</div>
+                    <img src="IMG202509261257.jpg">
+                    <div class="caption">730 days of you, and I still get shy.</div>
                 </div>
                 <div class="polaroid">
-                    <img src="pic2.jpg" alt="Memory 2">
-                    <div class="caption">Most people need a camera to see art; I just need to look at you.</div>
-                </div>
-                <div class="polaroid">
-                    <img src="pic3.jpg" alt="Memory 3">
-                    <div class="caption">Cold drinks and the girl who makes my heart race.</div>
-                </div>
-                <div class="polaroid">
-                    <img src="pic4.jpg" alt="Memory 4">
-                    <div class="caption">The Blue & Black queen of my world.</div>
+                    <img src="IMG202512101245.jpg">
+                    <div class="caption">Most people need a camera to see art; I just need you.</div>
                 </div>
             </div>
-
-            <p class="final-note">ARCHIVED ON DEC 13, 2025 | RELEASED MAY 26, 2026</p>
+            <p style="font-size: 0.6rem; color: #333; margin-top: 40px;">ARCHIVED DEC 13, 2025</p>
         </div>
     </div>
 
@@ -215,7 +156,6 @@
         function openLetter() {
             document.getElementById('landing').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-            window.scrollTo(0,0);
         }
     </script>
 </body>
