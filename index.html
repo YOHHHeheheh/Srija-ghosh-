@@ -9,7 +9,6 @@
         :root { --flower-pink: #FF85A1; --soft-pink: #FFE5EC; --yes-green: #2ecc71; --no-red: #e74c3c; }
         body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); font-family: 'Nunito', sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; touch-action: manipulation; }
         
-        /* Petals & Shooting Star */
         .petal { position: fixed; background-color: #ffb7c5; border-radius: 150% 0 150% 0; z-index: 0; opacity: 0.6; pointer-events: none; animation: fall linear infinite; }
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
         .star { position: fixed; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 10px white; z-index: 5; pointer-events: auto; display: none; }
@@ -22,6 +21,12 @@
 
         #proposal-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 40px 20px; border-radius: 30px; z-index: 10000; width: 85%; max-width: 380px; border: 5px solid var(--flower-pink); box-shadow: 0 0 100px rgba(0,0,0,0.2); }
         #main-gift { display: none; background: rgba(255, 255, 255, 0.98); padding: 40px 25px; border-radius: 35px; width: 100%; box-sizing: border-box; box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 4px solid white; }
+        
+        /* Counter Styling */
+        .counter-box { background: var(--soft-pink); padding: 15px; border-radius: 20px; border: 2px solid var(--flower-pink); margin-bottom: 25px; }
+        .counter-number { font-family: 'Fredoka One', cursive; font-size: 2rem; color: var(--flower-pink); display: block; }
+        .counter-label { font-family: 'Pacifico'; font-size: 1rem; color: #8B5A2B; }
+
         .shimmer-btn { background: var(--flower-pink); color: white; border: none; padding: 15px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; cursor: pointer; margin: 10px 0; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4); }
         .polaroid { background: white; padding: 15px 15px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 35px 0; }
         .polaroid img { width: 100%; filter: blur(25px); transition: 2s ease; }
@@ -44,6 +49,11 @@
         </div>
 
         <div id="main-gift">
+            <div class="counter-box">
+                <span class="counter-label">Days you have been loved by Tish:</span>
+                <span class="counter-number" id="loveCounter">0</span>
+            </div>
+
             <button class="shimmer-btn" style="width:100%;" id="musicBtn" onclick="toggleMusic()">🎵 Play Our Song</button>
             <h1 style="font-family: 'Pacifico'; color: var(--flower-pink);">Happy Birthday, Srija... 🌸</h1>
             <div id="typewriter" style="text-align: left; line-height: 1.8; color: #444; font-size: 1.1rem; white-space: pre-wrap;"></div>
@@ -73,7 +83,15 @@
         const music = document.getElementById('bgMusic');
         let nudges = 0;
 
-        // Petal Generation
+        // Love Counter Logic
+        function updateCounter() {
+            const startDate = new Date('2024-06-30'); // Start date 30 June 2024
+            const today = new Date();
+            const timeDiff = today - startDate;
+            const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('loveCounter').innerHTML = daysDiff;
+        }
+
         for (let i = 0; i < 15; i++) {
             const p = document.createElement('div'); p.className='petal'; p.style.left=Math.random()*100+'vw'; p.style.width=Math.random()*15+10+'px'; p.style.height=p.style.width; p.style.animationDuration=Math.random()*3+5+'s'; document.getElementById('petals-container').appendChild(p);
         }
@@ -91,8 +109,9 @@
         }
 
         function startGift() {
-            if (navigator.vibrate) { navigator.vibrate([200, 100, 200]); } // Heartbeat vibration
+            if (navigator.vibrate) { navigator.vibrate([200, 100, 200]); }
             document.getElementById('proposal-box').style.display = 'none'; document.getElementById('main-gift').style.display = 'block';
+            updateCounter(); // Initialize counter when gift opens
             music.play();
             let i = 0; const c = document.getElementById('typewriter');
             function type() { if(i < letter.length){ c.innerHTML += letter.charAt(i); i++; setTimeout(type, 50); } else { document.getElementById('gallery').style.display='block'; } }
@@ -114,7 +133,15 @@
         }
 
         function toggleMusic() { if(music.paused){ music.play(); } else { music.pause(); } }
-        function checkDate() { const d = new Date(); if(d.getMonth()===4 && d.getDate()===26) { alert("I love you more than words can say! 😍"); } else { alert("Wait until May 26th! 🧸"); } }
+        
+        function checkDate() { 
+            const d = new Date(); 
+            if(d.getMonth()===4 && d.getDate()===26) { 
+                alert("Complimenting her that in her eyes i wass seing our beloved future and bright together everyday form june 2024. Khash tui oidin amake boltis ba khash tui boltis keno u ignored me hoyeto bhojale what caused you trouble ba keu hoyeto toke bolechilo ba tui nijei korli eram ei sobh jodhi tui discuss korte partis and surely amra soln petam tahole amraaa akhun eksatheii thaktam ekher r opor er songee and yahhh dhure giyeo i loveee youu alott u are still my favourite girl but yah 🥹 joddhi tui amake sotti eii boltis sobh and jodhi tui nijer r bhul bhuje sorry bole ditis tahole bishash kor ami khussi khussi abar tor kache chole jetam as ur tish 😍anywaysss happy birthday loveeee ajkher r din tah jenoo tor khubbb sundorrr khateeee and Yahh i lovee you onektaaa"); 
+            } else { 
+                alert("Wait until May 26th! 🧸"); 
+            } 
+        }
     </script>
 </body>
 </html>
