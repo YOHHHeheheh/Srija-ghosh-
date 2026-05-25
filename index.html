@@ -6,9 +6,81 @@
     <title>For My Srija | 26.05</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        :root { --flower-pink: #FF85A1; --soft-pink: #FFE5EC; --yes-green: #2ecc71; --no-red: #e74c3c; --star-gold: #FFF07C; }
+        :root { --flower-pink: #FF85A1; --soft-pink: #FFE5EC; --yes-green: #2ecc71; --no-red: #e74c3c; --star-gold: #FFF07C; --cherry-red: #8B0000; }
         body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); font-family: 'Nunito', sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; touch-action: manipulation; }
         
+        /* CHERRY RED PASSWORD WALL STYLE */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffccd5 0%, #fff0f3 100%);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .pass-box {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 30px;
+            border: 5px solid var(--cherry-red);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.25);
+            width: 85%;
+            max-width: 340px;
+        }
+        .pass-input {
+            width: 85%;
+            padding: 12px 15px;
+            border: 2px solid #ffb3c1;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            font-family: 'Nunito', sans-serif;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .pass-input:focus {
+            border-color: var(--cherry-red);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+        }
+        .error-msg {
+            color: var(--cherry-red);
+            font-size: 0.95rem;
+            margin-top: 12px;
+            display: none;
+            font-weight: bold;
+            line-height: 1.4;
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px dashed var(--cherry-red);
+        }
+        .cherry-btn {
+            background: var(--cherry-red); 
+            color: white; 
+            border: none; 
+            padding: 15px 25px; 
+            border-radius: 50px; 
+            font-family: 'Fredoka One', cursive; 
+            cursor: pointer; 
+            margin: 0; 
+            transition: 0.3s; 
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            width: 85%;
+        }
+        .cherry-btn:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
         /* Petals */
         .petal { position: fixed; background-color: #ffb7c5; border-radius: 150% 0 150% 0; z-index: 0; opacity: 0.6; pointer-events: none; animation: fall linear infinite; }
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
@@ -59,6 +131,20 @@
     </style>
 </head>
 <body onclick="spawnHeart(event)">
+
+    <!-- CHERRY RED PASSWORD GATEWAY OVERLAY -->
+    <div id="password-gate">
+        <div class="pass-box">
+            <h2 style="font-family: 'Pacifico'; color: var(--cherry-red); margin-top:0;">Hello Srija! 🍒</h2>
+            <p style="color: #444; font-size: 0.95rem; margin-bottom: 20px; font-weight: bold;">Enter our special date to unlock your gift:</p>
+            
+            <input type="text" id="passwordInput" class="pass-input" placeholder="DD  MM    YYYY">
+            <br>
+            <button class="cherry-btn" onclick="checkPassword()">Unlock ✨</button>
+            <div id="error-message" class="error-msg"></div>
+        </div>
+    </div>
+
     <div id="petals-container"></div>
     <div id="shooting-star" class="star" onclick="makeWish()"></div>
     <audio id="bgMusic" loop><source src="Apocalypse - Cigarettes After Sex.mp3" type="audio/mpeg"></audio>
@@ -112,6 +198,42 @@
         const letter = `Happy Birthday to the girl who literally has it all. I could get lost in your eyes for hours, but honestly? My favorite place to be is right next to you. I love holding your waist and pulling you close, and I definitely love kissing you more than anything else. You’re stunning, smart, and all mine. Can’t wait to give you your birthday kisses in person.\n\nWith all my soul,\nTrishit (Tish) ❤️`;
         const music = document.getElementById('bgMusic');
         let nudges = 0;
+        let wrongAttempts = 0; // Tracks incorrect submissions
+
+        // PASSWORD LOGIC WITH DYNAMIC HINTS
+        function checkPassword() {
+            const enteredPassword = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('error-message');
+            
+            const correctPassword = "27  12    2024"; 
+
+            if (enteredPassword === correctPassword) {
+                const gate = document.getElementById('password-gate');
+                gate.style.opacity = '0';
+                setTimeout(() => {
+                    gate.style.visibility = 'hidden';
+                }, 500);
+            } else {
+                wrongAttempts++;
+                errorMsg.style.display = 'block';
+                
+                // Show dynamic hint text depending on the attempt count
+                if (wrongAttempts === 1) {
+                    errorMsg.innerHTML = '🧸 "bubu eta amader r best dayyy best best dayy independent day "';
+                } else {
+                    errorMsg.innerHTML = '🫣 "fanta kiss kole uthe was sexy "';
+                }
+                
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Allow pressing "Enter" key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
 
         function calculateLoveDays() {
             const startDate = new Date('2024-06-30'); 
