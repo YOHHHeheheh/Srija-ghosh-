@@ -39,13 +39,13 @@
             padding: 12px 15px;
             border: 2px solid #ffb3c1;
             border-radius: 25px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: center;
             outline: none;
             margin-bottom: 15px;
             font-family: 'Nunito', sans-serif;
             transition: 0.3s;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         .pass-input:focus {
             border-color: var(--cherry-red);
@@ -137,7 +137,7 @@
             <h2 style="font-family: 'Pacifico'; color: var(--cherry-red); margin-top:0;">Hello Srija! 🍒</h2>
             <p style="color: #444; font-size: 0.95rem; margin-bottom: 20px; font-weight: bold;">Enter our special date to unlock your gift:</p>
             
-            <input type="text" id="passwordInput" class="pass-input" placeholder="DD  MM    YYYY">
+            <input type="text" id="passwordInput" class="pass-input" placeholder="DDMMYYYY">
             <br>
             <button class="cherry-btn" onclick="checkPassword()">Unlock ✨</button>
             <div id="error-message" class="error-msg"></div>
@@ -199,12 +199,12 @@
         let nudges = 0;
         let wrongAttempts = 0;
 
-        // PASSWORD LOGIC WITH DYNAMIC HINTS
+        // PASSWORD LOGIC WITH STRAIGHT DIGITS
         function checkPassword() {
-            const enteredPassword = document.getElementById('passwordInput').value;
+            const enteredPassword = document.getElementById('passwordInput').value.trim();
             const errorMsg = document.getElementById('error-message');
             
-            const correctPassword = "27  12    2024"; 
+            const correctPassword = "27122024"; 
 
             if (enteredPassword === correctPassword) {
                 const gate = document.getElementById('password-gate');
