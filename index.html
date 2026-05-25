@@ -132,7 +132,6 @@
 </head>
 <body onclick="spawnHeart(event)">
 
-    <!-- CHERRY RED PASSWORD GATEWAY OVERLAY -->
     <div id="password-gate">
         <div class="pass-box">
             <h2 style="font-family: 'Pacifico'; color: var(--cherry-red); margin-top:0;">Hello Srija! 🍒</h2>
@@ -198,7 +197,7 @@
         const letter = `Happy Birthday to the girl who literally has it all. I could get lost in your eyes for hours, but honestly? My favorite place to be is right next to you. I love holding your waist and pulling you close, and I definitely love kissing you more than anything else. You’re stunning, smart, and all mine. Can’t wait to give you your birthday kisses in person.\n\nWith all my soul,\nTrishit (Tish) ❤️`;
         const music = document.getElementById('bgMusic');
         let nudges = 0;
-        let wrongAttempts = 0; // Tracks incorrect submissions
+        let wrongAttempts = 0;
 
         // PASSWORD LOGIC WITH DYNAMIC HINTS
         function checkPassword() {
@@ -217,7 +216,6 @@
                 wrongAttempts++;
                 errorMsg.style.display = 'block';
                 
-                // Show dynamic hint text depending on the attempt count
                 if (wrongAttempts === 1) {
                     errorMsg.innerHTML = '🧸 "bubu eta amader r best dayyy best best dayy independent day "';
                 } else {
@@ -228,7 +226,6 @@
             }
         }
 
-        // Allow pressing "Enter" key to submit password
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkPassword();
